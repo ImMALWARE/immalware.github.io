@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download File</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            if (!params.has('filename') || !params.has('content')) {
+                window.location.href = "https://www.google.com";
+                return;
+            }
+            const filename = params.get('filename');
+            const content = params.get('content');
+            const downloadFile = () => {
+                const a = document.createElement('a');
+                a.href = 'data:text/plain;base64,' + content;
+                a.download = filename;
+                a.click();
+            };
+            document.getElementById('downloadButton').textContent = `Download ${filename}`;
+            document.getElementById('downloadButton').style.display = 'block';
+            document.getElementById('downloadButton').addEventListener('click', downloadFile);
+            downloadFile();
+        });
+    </script>
+</head>
+<body>
+    <button id="downloadButton" style="display: none;"></button>
+</body>
+</html>
